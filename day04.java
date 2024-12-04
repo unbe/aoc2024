@@ -54,11 +54,9 @@ public class day04 {
       indexMap.get('A').stream().filter(idx -> 
           indexMap.get('M').contains(idx.move(dir, 1)) &&
           indexMap.get('S').contains(idx.move(dir, -1)) &&
-          (indexMap.get('M').contains(idx.move(dir.rot(), 1)) &&
-          indexMap.get('S').contains(idx.move(dir.rot(), -1)) || 
           indexMap.get('M').contains(idx.move(dir.rot(), -1)) &&
-          indexMap.get('S').contains(idx.move(dir.rot(), 1)))
+          indexMap.get('S').contains(idx.move(dir.rot(), 1))
       )).count();
-    System.out.println("part2: " + cnt/2);
+    System.out.println("part2: " + cnt);
   }
 }
