@@ -43,28 +43,25 @@ public class day04 {
     List<C> xdirs = Arrays.asList(new C(-1, 1), new C(1, 1), new C(1, -1), new C(-1, -1));
     List<C> vdirs = Arrays.asList(new C(-1, 0), new C(1, 0), new C(0, 1), new C(0, -1));
     List<C> dirs = Stream.concat(xdirs.stream(), vdirs.stream()).toList();
-    int cnt = 0;
 
-    for (C dir : dirs) {
-      cnt += indexMap.get('X').stream().filter(idx -> 
+    long cnt = dirs.stream().map(dir ->
+      indexMap.get('X').stream().filter(idx -> 
           indexMap.get('M').contains(idx.move(dir, 1)) &&
           indexMap.get('A').contains(idx.move(dir, 2)) &&
           indexMap.get('S').contains(idx.move(dir, 3))
-      ).count();
-    }
+      ).count()).mapToLong(Long::longValue).sum();
+    
     System.out.println("part1: " + cnt);
 
-    cnt = 0;
-    for (C dir : xdirs) {
-      cnt += indexMap.get('A').stream().filter(idx -> 
+    cnt = dirs.stream().map(dir ->
+      indexMap.get('A').stream().filter(idx -> 
           indexMap.get('M').contains(idx.move(dir, 1)) &&
           indexMap.get('S').contains(idx.move(dir, -1)) &&
           (indexMap.get('M').contains(idx.move(dir.rot(), 1)) &&
           indexMap.get('S').contains(idx.move(dir.rot(), -1)) || 
           indexMap.get('M').contains(idx.move(dir.rot(), -1)) &&
           indexMap.get('S').contains(idx.move(dir.rot(), 1)))
-      ).count();
-    }
+      ).count()).mapToLong(Long::longValue).sum();
     System.out.println("part2: " + cnt/2);
   }
 }
