@@ -29,7 +29,6 @@ public class day04 {
       String line;
       int i = 0;
       while ((line = br.readLine()) != null) {
-        line = line.strip();
         char[] chr = line.toCharArray();
         for (int j = 0; j < chr.length; j++) {
           var map = indexMap.get(chr[j]);
