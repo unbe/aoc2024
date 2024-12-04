@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class day04 {
   public record C(int i, int j) {
@@ -32,19 +33,16 @@ public class day04 {
         char[] chr = line.toCharArray();
         for (int j = 0; j < chr.length; j++) {
           var map = indexMap.get(chr[j]);
-          if (map == null) {
-            continue;
+          if (map != null) {
+            map.add(new C(i, j));
           }
-          map.add(new C(i, j));
         }
         i++;
       }
     }
     List<C> xdirs = Arrays.asList(new C(-1, 1), new C(1, 1), new C(1, -1), new C(-1, -1));
     List<C> vdirs = Arrays.asList(new C(-1, 0), new C(1, 0), new C(0, 1), new C(0, -1));
-    List<C> dirs = new ArrayList<>();
-    dirs.addAll(xdirs);
-    dirs.addAll(vdirs);
+    List<C> dirs = Stream.concat(xdirs.stream(), vdirs.stream()).toList();
     int cnt = 0;
 
     for (C dir : dirs) {
