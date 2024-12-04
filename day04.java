@@ -1,11 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -40,20 +38,19 @@ public class day04 {
         i++;
       }
     }
-    List<C> xdirs = Arrays.asList(new C(-1, 1), new C(1, 1), new C(1, -1), new C(-1, -1));
-    List<C> vdirs = Arrays.asList(new C(-1, 0), new C(1, 0), new C(0, 1), new C(0, -1));
-    List<C> dirs = Stream.concat(xdirs.stream(), vdirs.stream()).toList();
+    var xdirs = Arrays.asList(new C(-1, 1), new C(1, 1), new C(1, -1), new C(-1, -1));
+    var vdirs = Arrays.asList(new C(-1, 0), new C(1, 0), new C(0, 1), new C(0, -1));
+    var dirs = Stream.concat(xdirs.stream(), vdirs.stream()).toList();
 
-    long cnt = dirs.stream().map(dir ->
+    var cnt = dirs.stream().flatMap(dir ->
       indexMap.get('X').stream().filter(idx -> 
           indexMap.get('M').contains(idx.move(dir, 1)) &&
           indexMap.get('A').contains(idx.move(dir, 2)) &&
           indexMap.get('S').contains(idx.move(dir, 3))
-      ).count()).mapToLong(Long::longValue).sum();
-    
+      )).count();
     System.out.println("part1: " + cnt);
 
-    cnt = dirs.stream().map(dir ->
+    cnt = dirs.stream().flatMap(dir ->
       indexMap.get('A').stream().filter(idx -> 
           indexMap.get('M').contains(idx.move(dir, 1)) &&
           indexMap.get('S').contains(idx.move(dir, -1)) &&
@@ -61,7 +58,7 @@ public class day04 {
           indexMap.get('S').contains(idx.move(dir.rot(), -1)) || 
           indexMap.get('M').contains(idx.move(dir.rot(), -1)) &&
           indexMap.get('S').contains(idx.move(dir.rot(), 1)))
-      ).count()).mapToLong(Long::longValue).sum();
+      )).count();
     System.out.println("part2: " + cnt/2);
   }
 }
