@@ -16,7 +16,7 @@ fn main() {
   let file = File::open(env::args().nth(1).expect("arg?")).expect("open");
   let mut line_iter = io::BufReader::new(file).lines().map(Result::unwrap);
   let rules = line_iter.by_ref().take_while(|s| s!="").map(|s| s.split("|").map(|d| d.parse::<i32>().unwrap()).collect_tuple().unwrap()).into_group_map();
-  let updates = line_iter.map(|s| s.split(",").map(|d| d.parse::<i32>().unwrap()).collect::<Vec<_>>()).collect::<Vec<_>>(); 
+  let updates = line_iter.map(|s| s.split(",").map(|d| d.parse::<i32>().unwrap()).collect::<Vec<_>>());
   let no_deps = Vec::new();
   let mut part1_sum = 0;
   let mut part2_sum = 0;
