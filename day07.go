@@ -34,6 +34,27 @@ func combine(ops []int, canConcat bool) <-chan int {
 }
 
 func main() {
+	/*
+	   Out of curiosity: PGO is ~6% faster on this.
+
+	   % go build -pgo=cpu.pprof day07.go && time ./day07 ~/Downloads/input.txt
+	   part1: 882304362421
+	   part2: 145149066755184
+	   ./day07 ~/Downloads/input.txt  4.16s user 1.38s system 180% cpu 3.069 total
+
+	   % go build day07.go && time ./day07 ~/Downloads/input.txt
+	   part1: 882304362421
+	   part2: 145149066755184
+	   ./day07 ~/Downloads/input.txt  4.42s user 1.47s system 185% cpu 3.170 total
+
+	   Profile generator:
+	   	f, err := os.Create("cpu.pprof")
+	   	if err != nil {
+	   		panic(err)
+	   	}
+	   	pprof.StartCPUProfile(f)
+	   	defer pprof.StopCPUProfile()
+	*/
 	file, err := os.Open(os.Args[1])
 	if err != nil {
 		log.Fatal(err)
