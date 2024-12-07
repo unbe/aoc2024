@@ -27,7 +27,7 @@ impl XY {
   }
 }
 
-// returns number of cells visited or None if it's a loop
+// returns the list of cells visited or None if it's a loop
 fn simulate(maze: &Vec<String>, start_pos: &XY, start_dir: &XY, block: &XY) -> Option<HashSet<XY>> {
   let mut pos = start_pos.clone();
   let mut dir = start_dir.clone();
