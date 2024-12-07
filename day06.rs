@@ -21,6 +21,9 @@ impl XY {
   fn rot(&self) -> Self {
     Self(self.1, -self.0)
   }
+  fn maze_sz(maze: &Vec<String>) -> Self {
+    Self(maze.len() as i32, maze[0].len() as i32)
+  }
   fn is_free(&self, maze: &Vec<String>) -> bool {
     let ch = maze[self.0 as usize].as_bytes()[self.1 as usize];
     return ch == b'.' || ch == b'^'
@@ -31,7 +34,7 @@ impl XY {
 fn simulate(maze: &Vec<String>, start_pos: &XY, start_dir: &XY, block: &XY) -> Option<HashSet<XY>> {
   let mut pos = start_pos.clone();
   let mut dir = start_dir.clone();
-  let sz = XY(maze.len() as i32, maze[0].len() as i32);
+  let sz = XY::maze_sz(maze);
   let mut visited = HashSet::new();
   loop {
     if !visited.insert((pos.clone(), dir.clone())) {
