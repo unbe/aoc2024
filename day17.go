@@ -95,25 +95,6 @@ func run(regs map[byte]int, prog []byte) []byte {
 		}
 	}
 	out := []byte{}
-	dn := map[byte]string{
-		0: "adv A >>= $c",
-		1: "bxl B ^= $a",
-		2: "bst B = $c % 8",
-		3: "jnz A? jmp($a)",
-		4: "bxc B = B ^ C",
-		5: "out($c % 8)",
-		6: "bdv B = A >> $c",
-		7: "cdv C = A >> $c",
-	}
-	cd := map[byte]string{
-		0: "",
-		1: "",
-		2: "",
-		3: "",
-		4: "A=",
-		5: "B=",
-		6: "C=",
-	}
 	dt := map[byte]func(byte){
 		0: func(arg byte) { regs[A] = regs[A] >> combo(arg) },
 		1: func(arg byte) { regs[B] = regs[B] ^ int(arg) },
@@ -133,13 +114,7 @@ func run(regs map[byte]int, prog []byte) []byte {
 	for ip < len(prog) {
 		is := prog[ip]
 		arg := prog[ip+1]
-		ra := fmt.Sprintf("%v", arg)
-		rc := fmt.Sprintf("%v%v", cd[arg], combo(arg))
-		isn := strings.Replace(dn[is], "$a", ra, -1)
-		isn = strings.Replace(isn, "$c", rc, -1)
-		// fmt.Printf(" %v: %v \t\t%v -> ", ip, isn, regs)
 		dt[is](arg)
-		// fmt.Printf(" %v\n", regs)
 		ip += 2
 	}
 	return out
