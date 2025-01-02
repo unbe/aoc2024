@@ -66,17 +66,16 @@ func main() {
 
 func bruteforceOne(valuesForA []int, prog []byte, idx int) []int {
 	newValuesForA := []int{}
-	out := []byte{}
 	regs := map[byte]int{}
 	for _, val := range valuesForA {
-		base := val << 3
 		for i := range 8 {
-			regs[A] = base + i
+			nextVal := val<<3 + i
+			regs[A] = nextVal
 			regs[B] = 0
 			regs[C] = 0
-			out = run(regs, prog)
+			out := run(regs, prog)
 			if len(out) == idx && out[len(out)-idx] == prog[len(prog)-idx] {
-				newValuesForA = append(newValuesForA, base+i)
+				newValuesForA = append(newValuesForA, nextVal)
 			}
 		}
 	}
@@ -112,9 +111,7 @@ func run(regs map[byte]int, prog []byte) []byte {
 		7: func(arg byte) { regs[C] = regs[A] >> combo(arg) },
 	}
 	for ip < len(prog) {
-		is := prog[ip]
-		arg := prog[ip+1]
-		dt[is](arg)
+		dt[prog[ip]](prog[ip+1])
 		ip += 2
 	}
 	return out
