@@ -52,7 +52,7 @@ func main() {
 		if solve(bad, k) > 0 {
 			a = k
 		} else {
-			b = k - 1
+			b = k
 		}
 	}
 	fmt.Printf("part2: %v,%v\n", badr[b].x, badr[b].y)
