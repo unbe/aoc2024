@@ -51,12 +51,12 @@ func main() {
 	}
 	fmt.Printf("part1: %v\n", strout[1:])
 
-	valueForA := []int{0}
+	valuesForA := []int{0}
 	for i := range prog {
-		valueForA = bruteforceOne(valueForA, prog, i+1)
+		valuesForA = bruteforceOne(valuesForA, prog, i+1)
 	}
 	var m int
-	for i, f := range valueForA {
+	for i, f := range valuesForA {
 		if i == 0 || f < m {
 			m = f
 		}
