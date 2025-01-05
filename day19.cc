@@ -4,7 +4,6 @@
 #include <regex>
 #include <map>
 
-
 typedef uint64_t cnt_t;
 
 cnt_t make(std::map<std::string,cnt_t>& cache, const std::string& pattern, std::vector<std::string> towels) {
@@ -23,15 +22,6 @@ cnt_t make(std::map<std::string,cnt_t>& cache, const std::string& pattern, std::
   }
   cache[pattern] = ways;
   return ways;
-}
-
-void print(__int128 x) {
-    if (x < 0) {
-        putchar('-');
-        x = -x;
-    }
-    if (x > 9) print(x / 10);
-    putchar(x % 10 + '0');
 }
 
 int main(int argc, char *argv[])
