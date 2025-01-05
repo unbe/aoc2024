@@ -6,7 +6,7 @@
 
 typedef uint64_t cnt_t;
 
-cnt_t make(std::map<std::string,cnt_t>& cache, const std::string& pattern, std::vector<std::string> towels) {
+cnt_t make(std::map<std::string,cnt_t>& cache, const std::string& pattern, const std::vector<std::string>& towels) {
   if (pattern.size() == 0) {
     return 1;
   }
