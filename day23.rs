@@ -33,17 +33,12 @@ fn bron_kerbosch<'a>(
 
       r.insert(v);
 
-      // Ensure both arms return &[&str]
-      let neighbors: &[&str] = match graph.get(v) {
-          Some(vec) => vec.as_slice(),
-          None => &[],
-      };
+      let neighbors = graph.get(v).map(Vec::as_slice).unwrap_or(&[]);
 
-      let mut p_new: HashSet<&'a str> = p.iter().copied().collect();
-      p_new.retain(|u| neighbors.contains(u));
-
-      let mut x_new: HashSet<&'a str> = x.iter().copied().collect();
-      x_new.retain(|u| neighbors.contains(u));
+      let mut p_new: HashSet<&'a str> =
+        p.iter().copied().filter(|u| neighbors.contains(u)).collect();
+      let mut x_new: HashSet<&'a str> =
+        x.iter().copied().filter(|u| neighbors.contains(u)).collect();
 
       bron_kerbosch(r, &mut p_new, &mut x_new, graph, cliques);
 
