@@ -38,6 +38,8 @@ fn main() {
   }
   std::println!("part1: {}", part1);
   // Part2 solved mostly visually. See day24.svg and day24.dot
+  // cat input.txt  | grep -e '->' | sed -E 's/([^ ]+) ([^ ]+) (.*) -> (.*)/  \4 -> {\1 \3} [ label="\2" color="\2" ];/g; s/color="XOR"/color="red"/g; s/color="OR"/color="green"/g' | sort -r |  pbcopy
+  // https://dreampuf.github.io/GraphvizOnline/?engine=fdp
   // It was also helpful to run it with all-ones in x and y and observe
   // unexpected zeros in the result
 }
